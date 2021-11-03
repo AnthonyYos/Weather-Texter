@@ -9,7 +9,7 @@ Create a "TOKENS.env" env file with these key names and provide your own api key
 * twilio_number = Sender Phone Number (e.g.: 1234567890)<br>
 * number = Receiver Phone Number (e.g: 0987654321)<br>
 
-## Usage
+## Variables You Need to Fill
 ```python
 # Fill out each string to reference your specified location.
 city = "city name"
