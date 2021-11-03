@@ -26,15 +26,16 @@ def get_weather():
     # json is a file format that allows for data exchange
     weather_data = response.json()
     # extracting/assigning specific data
+    city_name = weather_data["name"]
     temp_cur = weather_data["main"]["temp"]
     temp_min = weather_data["main"]["temp_min"]
     temp_max = weather_data["main"]["temp_max"]
     cur_cond = weather_data["weather"][0]["description"]
-    return temp_cur, temp_min, temp_max, cur_cond
+    return temp_cur, temp_min, temp_max, cur_cond, city_name
 
 client = Client(account_sid, auth_token)
 def sendText():
-    temp_cur, temp_min, temp_max, cur_cond = get_weather()
+    temp_cur, temp_min, temp_max, cur_cond, city_name = get_weather()
 
     # Used to timestamp weather at the time
     now = datetime.now()
@@ -44,7 +45,7 @@ def sendText():
         to = f"+1{number}",
         from_= f"+1{twilio_number}",
         body = ("\n"
-                "Lenexa\n"
+                f"{city_name}\n"
                 f"Current temp: {temp_cur}\n"
                 f"Min temp: {temp_min}\n"
                 f"Max temp: {temp_max}\n"
