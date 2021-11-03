@@ -1,4 +1,5 @@
 from requests.models import Response
+from datetime import datetime
 import schedule
 import json
 import requests
@@ -31,10 +32,14 @@ def get_weather():
     cur_cond = weather_data["weather"][0]["description"]
     return temp_cur, temp_min, temp_max, cur_cond
 
-
 client = Client(account_sid, auth_token)
 def sendText():
     temp_cur, temp_min, temp_max, cur_cond = get_weather()
+
+    # Used to timestamp weather at the time
+    now = datetime.now()
+    current_time = now.strftime("%I:%M %p\n%x")
+
     client.messages.create(
         to = f"+1{number}",
         from_= f"+1{twilio_number}",
@@ -43,7 +48,8 @@ def sendText():
                 f"Current temp: {temp_cur}\n"
                 f"Min temp: {temp_min}\n"
                 f"Max temp: {temp_max}\n"
-                f"Condition: {cur_cond}\n"))
+                f"Condition: {cur_cond}\n"
+                f"@ {current_time}"))
 
 schedule.every().day.at("08:00").do(sendText)
 schedule.every().day.at("12:00").do(sendText)
