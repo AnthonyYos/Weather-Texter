@@ -52,7 +52,7 @@ def sendText():
                 f"Max temp: {temp_max}{temp_unit}\n"
                 f"Condition: {cur_cond}\n"
                 f"Sent @ {current_time}"))
-sendText()
+                
 schedule.every().day.at("08:00").do(sendText)
 schedule.every().day.at("12:00").do(sendText)
 schedule.every().day.at("16:00").do(sendText)
