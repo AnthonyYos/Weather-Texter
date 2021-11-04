@@ -40,18 +40,19 @@ def sendText():
     # Used to timestamp weather at the time
     now = datetime.now()
     current_time = now.strftime("%I:%M %p\n%x")
+    temp_unit = u"\N{DEGREE SIGN}F"
 
     client.messages.create(
         to = f"+1{number}",
         from_= f"+1{twilio_number}",
-        body = ("\n"
+        body = (
                 f"{city_name}\n"
-                f"Current temp: {temp_cur}\n"
-                f"Min temp: {temp_min}\n"
-                f"Max temp: {temp_max}\n"
+                f"Current temp: {temp_cur}{temp_unit}\n"
+                f"Min temp: {temp_min}{temp_unit}\n"
+                f"Max temp: {temp_max}{temp_unit}\n"
                 f"Condition: {cur_cond}\n"
-                f"@ {current_time}"))
-
+                f"Sent @ {current_time}"))
+sendText()
 schedule.every().day.at("08:00").do(sendText)
 schedule.every().day.at("12:00").do(sendText)
 schedule.every().day.at("16:00").do(sendText)
