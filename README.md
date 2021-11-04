@@ -2,7 +2,9 @@
 Weather texter sends text of the current weather, daily high, daily low, and current condtions on a schedule throughtout the day.
 
 ## Requirements
-Create a "TOKENS.env" env file with these key names and provide your own api keys from openweather and twilio.<br>
+Create a "TOKENS.env" env file and place it within the weather-texter directory.<br>
+Get your own keys from openweather and twilio.<br>
+Below is the content for your env file.
 * openweather_api_key = Your Openweather API Key<br>
 * twilio_account_sid = Your Twilio SID<br>
 * twilio_auth_token = Your Twilio Token<br>
