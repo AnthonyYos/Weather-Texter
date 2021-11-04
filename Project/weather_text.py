@@ -16,9 +16,10 @@ number = os.getenv('number')
 openweather_key = os.getenv('openweather_api_key')
 
 # openweather-related variables
-city = "lenexa"
-state = "us-ks"
+city = os.getenv('city')
+state = os.getenv('state')
 units = "imperial"
+
 def get_weather():
     openweather_url= f"http://api.openweathermap.org/data/2.5/weather?q={city},{state}&units={units}&appid={openweather_key}"
     # make a request using the get method from the url
@@ -35,9 +36,9 @@ def get_weather():
 
 client = Client(account_sid, auth_token)
 def sendText():
+    # weather data
     temp_cur, temp_min, temp_max, cur_cond, city_name = get_weather()
-
-    # Used to timestamp weather at the time
+    # Timestamp for texts
     now = datetime.now()
     current_time = now.strftime("%I:%M %p\n%x")
     temp_unit = u"\N{DEGREE SIGN}F"
@@ -52,7 +53,7 @@ def sendText():
                 f"Max temp: {temp_max}{temp_unit}\n"
                 f"Condition: {cur_cond}\n"
                 f"Sent @ {current_time}"))
-                
+
 schedule.every().day.at("08:00").do(sendText)
 schedule.every().day.at("12:00").do(sendText)
 schedule.every().day.at("16:00").do(sendText)
