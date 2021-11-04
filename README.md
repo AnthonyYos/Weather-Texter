@@ -23,3 +23,6 @@ openweather_url = f"http://api.openweathermap.org/data/2.5/weather?q={city},{sta
 schedule.every().day.at("08:00").do(sendText)
 schedule.every().day.at("12:00").do(sendText)
 schedule.every().day.at("16:00").do(sendText)
+
+# If imperial units isn't being used replace fahrenheit symbol (F) with celcius or kelvin
+temp_unit = u"\N{DEGREE SIGN}F"
