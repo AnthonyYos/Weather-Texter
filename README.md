@@ -10,12 +10,12 @@ Below is the content for your env file.
 * twilio_auth_token = Your Twilio Token<br>
 * twilio_number = Sender Phone Number (e.g.: 1234567890)<br>
 * number = Receiver Phone Number (e.g: 0987654321)<br>
+* city = city name
+* state = us-state abbreviation (e.g: us-mo) or use your country's abbreviation if not in the US. (e.g: uk)
 
 ## Variables You Need to Fill
 ```python
 # Fill out each string to match your specific needs.
-city = "city name"
-state = "us-state abbreviation" # Or country abbreviation if not in the US (e.g: uk)
 units = "system unit" # imperial, metric, or standard
 
 # If the imperial system isn't being used replace fahrenheit symbol (F) with celcius or kelvin
