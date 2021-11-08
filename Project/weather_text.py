@@ -19,18 +19,25 @@ openweather_key = os.getenv('openweather_api_key')
 city = os.getenv('city')
 state = os.getenv('state')
 units = "imperial"
+openweather_url= f"http://api.openweathermap.org/data/2.5/weather?q={city},{state}&units={units}&appid={openweather_key}"
+temp_unit = u"\N{DEGREE SIGN}F"
+
+def get_current_time():
+    # Timestamp for texts
+    now = datetime.now()
+    current_time = now.strftime("%I:%M %p\n%x")
+    return current_time
 
 def get_weather():
-    openweather_url= f"http://api.openweathermap.org/data/2.5/weather?q={city},{state}&units={units}&appid={openweather_key}"
     # make a request using the get method from the url
     response = requests.get(openweather_url)
     # json is a file format that allows for data exchange
     weather_data = response.json()
     # extracting/assigning specific data
     city_name = weather_data["name"]
-    temp_cur = weather_data["main"]["temp"]
-    temp_min = weather_data["main"]["temp_min"]
-    temp_max = weather_data["main"]["temp_max"]
+    temp_cur = round(weather_data["main"]["temp"])
+    temp_min = round(weather_data["main"]["temp_min"])
+    temp_max = round(weather_data["main"]["temp_max"])
     cur_cond = weather_data["weather"][0]["description"]
     return temp_cur, temp_min, temp_max, cur_cond, city_name
 
@@ -38,11 +45,7 @@ client = Client(account_sid, auth_token)
 def sendText():
     # weather data
     temp_cur, temp_min, temp_max, cur_cond, city_name = get_weather()
-    # Timestamp for texts
-    now = datetime.now()
-    current_time = now.strftime("%I:%M %p\n%x")
-    temp_unit = u"\N{DEGREE SIGN}F"
-
+    current_time = get_current_time()
     client.messages.create(
         to = f"+1{number}",
         from_= f"+1{twilio_number}",
@@ -53,7 +56,7 @@ def sendText():
                 f"Max temp: {temp_max}{temp_unit}\n"
                 f"Condition: {cur_cond}\n"
                 f"Sent @ {current_time}"))
-
+sendText()
 schedule.every().day.at("08:00").do(sendText)
 schedule.every().day.at("12:00").do(sendText)
 schedule.every().day.at("16:00").do(sendText)
