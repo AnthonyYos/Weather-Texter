@@ -38,7 +38,7 @@ def get_weather():
     temp_cur = round(weather_data["main"]["temp"])
     temp_min = round(weather_data["main"]["temp_min"])
     temp_max = round(weather_data["main"]["temp_max"])
-    cur_cond = weather_data["weather"][0]["description"]
+    cur_cond = weather_data["weather"][0]["description"].title()
     return temp_cur, temp_min, temp_max, cur_cond, city_name
 
 client = Client(account_sid, auth_token)
